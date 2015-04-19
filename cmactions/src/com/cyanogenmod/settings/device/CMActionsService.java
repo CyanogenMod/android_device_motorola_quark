@@ -32,13 +32,14 @@ public class CMActionsService extends IntentService implements ScreenStateNotifi
     private static final String GESTURE_IR_SILENCE_KEY = "gesture_ir_silence";
     private static final String GESTURE_CAMERA_KEY = "gesture_camera";
 
-    private State mState;
-    private SensorHelper mSensorHelper;
-    private ScreenReceiver mScreenReceiver;
+    public static final int SENSOR_TYPE_MMI_CAMERA_ACTIVATION = 65540;
+    public static final int SENSOR_TYPE_MMI_CHOP_CHOP = 65546;
+    public static final int SENSOR_TYPE_MMI_FLAT_UP = 65537;
+    public static final int SENSOR_TYPE_MMI_IR_GESTURE = 65541;
+    public static final int SENSOR_TYPE_MMI_STOW = 65539;
 
-    private CameraActivationAction mCameraActivationAction;
-    private DozePulseAction mDozePulseAction;
-    private SilenceAction mSilenceAction;
+    private State mState;
+    private ScreenReceiver mScreenReceiver;
 
     private CameraActivationSensor mCameraActivationSensor;
     private FlatUpSensor mFlatUpSensor;
@@ -58,24 +59,19 @@ public class CMActionsService extends IntentService implements ScreenStateNotifi
         Log.d(TAG, "Starting");
 
         mState = new State(context);
-        mSensorHelper = new SensorHelper(context);
         mScreenReceiver = new ScreenReceiver(context, this);
 
-        mCameraActivationAction = new CameraActivationAction(context);
-        mDozePulseAction = new DozePulseAction(context, mState);
-        mSilenceAction = new SilenceAction(context);
-
-        mCameraActivationSensor = new CameraActivationSensor(mSensorHelper, mCameraActivationAction);
-        mFlatUpSensor = new FlatUpSensor(mSensorHelper, mState, mDozePulseAction);
-        mIrGestureSensor = new IrGestureSensor(mSensorHelper, mDozePulseAction, mSilenceAction);
-        mStowSensor = new StowSensor(mSensorHelper, mState, mDozePulseAction);
+        mCameraActivationSensor = new CameraActivationSensor(mContext);
+        mFlatUpSensor = new FlatUpSensor(mContext, mState);
+        mIrGestureSensor = new IrGestureSensor(mContext, mState);
+        mStowSensor = new StowSensor(mContext, mState);
 
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(mContext);
         loadPreferences(sharedPrefs);
         sharedPrefs.registerOnSharedPreferenceChangeListener(mPrefListener);
 
         if (mGestureCameraEnabled) {
-            mCameraActivationSensor.enable();
+            mCameraActivationSensor.register();
         }
         if (mGestureIrWakeEnabled) {
             mIrGestureSensor.enable(IrGestureSensor.IR_GESTURE_WAKE_ENABLED);
@@ -99,8 +95,8 @@ public class CMActionsService extends IntentService implements ScreenStateNotifi
     @Override
     public void screenTurnedOn() {
         mState.setScreenIsOn(true);
-        mFlatUpSensor.disable();
-        mStowSensor.disable();
+        mFlatUpSensor.unregister();
+        mStowSensor.unregister();
         mIrGestureSensor.setScreenOn(true);
     }
 
@@ -108,8 +104,8 @@ public class CMActionsService extends IntentService implements ScreenStateNotifi
     public void screenTurnedOff() {
         mState.setScreenIsOn(false);
         if (isDozeEnabled()) {
-            mFlatUpSensor.enable();
-            mStowSensor.enable();
+            mFlatUpSensor.register();
+            mStowSensor.register();
             mIrGestureSensor.setScreenOn(false);
         }
     }
@@ -146,9 +142,9 @@ public class CMActionsService extends IntentService implements ScreenStateNotifi
             } else if (GESTURE_CAMERA_KEY.equals(key)) {
                 mGestureCameraEnabled = sharedPreferences.getBoolean(GESTURE_CAMERA_KEY, true);
                 if (mGestureCameraEnabled) {
-                    mCameraActivationSensor.enable();
+                    mCameraActivationSensor.register();
                 } else {
-                    mCameraActivationSensor.disable();
+                    mCameraActivationSensor.unregister();
                 }
             } 
         }

@@ -21,6 +21,7 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 
 public class State {
@@ -82,6 +83,15 @@ public class State {
             mLastDeniedDoze = now;
             return false;
         }
+    }
+
+    public boolean maybeSendDoze() {
+        if (mayDoze()) {
+            Log.d(TAG, "Sending doze.pulse intent");
+            mContext.sendBroadcast(new Intent("com.android.systemui.doze.pulse"));
+            return true;
+        }
+        return false;
     }
 
     private void saveStateIfEnabled() {

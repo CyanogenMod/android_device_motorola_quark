@@ -16,45 +16,29 @@
 
 package com.cyanogenmod.settings.device;
 
+import android.content.Context;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.util.Log;
 
-public class StowSensor implements ActionableSensor, SensorEventListener {
+public class StowSensor extends SensorBase {
     private static final String TAG = "CMActions-StowSensor";
 
-    private SensorHelper mSensorHelper;
     private State mState;
-    private SensorAction mSensorAction;
-    private Sensor mSensor;
 
-    public StowSensor(SensorHelper sensorHelper, State state, SensorAction sensorAction) {
-        mSensorHelper = sensorHelper;
+    public StowSensor(Context context, State state) {
+        super(context);
         mState = state;
-        mSensorAction = sensorAction;
-
-        mSensor = sensorHelper.getStowSensor();
-    }
-
-    @Override
-    public void enable() {
-        Log.d(TAG, "Enabling");
-        mSensorHelper.registerListener(mSensor, this);
-    }
-
-    @Override
-    public void disable() {
-        Log.d(TAG, "Disabling");
-        mSensorHelper.unregisterListener(this);
+        mSensorId = CMActionsService.SENSOR_TYPE_MMI_STOW;
     }
 
     @Override
     public void onSensorChanged(SensorEvent event) {
         boolean thisStowed = (event.values[0] != 0);
         Log.d(TAG, "event: " + thisStowed);
-        if (mState.setIsStowed(thisStowed) && ! thisStowed) {
-            mSensorAction.action();
+        if (mState.setIsStowed(thisStowed) && !thisStowed) {
+            mState.maybeSendDoze();
         }
     }
 

@@ -16,37 +16,21 @@
 
 package com.cyanogenmod.settings.device;
 
+import android.content.Context;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.util.Log;
 
-public class FlatUpSensor implements ActionableSensor, SensorEventListener {
+public class FlatUpSensor extends SensorBase {
     private static final String TAG = "CMActions-FlatUpSensor";
 
-    private SensorHelper mSensorHelper;
     private State mState;
-    private SensorAction mSensorAction;
-    private Sensor mSensor;
 
-    public FlatUpSensor(SensorHelper sensorHelper, State state, SensorAction sensorAction) {
-        mSensorHelper = sensorHelper;
+    public FlatUpSensor(Context context, State state) {
+        super(context);
         mState = state;
-        mSensorAction = sensorAction;
-
-        mSensor = sensorHelper.getFlatUpSensor();
-    }
-
-    @Override
-    public void enable() {
-        Log.d(TAG, "Enabling");
-        mSensorHelper.registerListener(mSensor, this);
-    }
-
-    @Override
-    public void disable() {
-        Log.d(TAG, "Disabling");
-        mSensorHelper.unregisterListener(this);
+        mSensorId = CMActionsService.SENSOR_TYPE_MMI_FLAT_UP;
     }
 
     @Override
@@ -55,11 +39,11 @@ public class FlatUpSensor implements ActionableSensor, SensorEventListener {
         boolean lastFlatUp = mState.setIsFlatUp(thisFlatUp);
         boolean isStowed = mState.getIsStowed();
 
-        Log.d(TAG, "event: " + thisFlatUp + " lastFlatUp=" + lastFlatUp + " isStowed=" + isStowed);
+        Log.d(TAG, getClass().getName() + ": event: " + thisFlatUp + ", lastFlatUp=" + lastFlatUp + ", isStowed=" + isStowed);
 
         // Only pulse when picked up:
-        if (lastFlatUp && ! thisFlatUp && !isStowed) {
-            mSensorAction.action();
+        if (lastFlatUp && !thisFlatUp && !isStowed) {
+            mState.maybeSendDoze();
         }
     }
 
