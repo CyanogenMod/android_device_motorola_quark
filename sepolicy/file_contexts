@@ -5,6 +5,10 @@
 # Audio DSP devices
 /dev/ttyHS3                             u:object_r:adsp_serial_device:s0
 
+# Cutback
+/data/misc/cutback(/.*)?                u:object_r:cutback_data_file:s0
+/data/misc/audio_cutback(/.*)?          u:object_r:audio_cutback_data_file:s0
+
 # Bluetooth
 /dev/ttyHS0                             u:object_r:hci_attach_dev:s0
 
@@ -26,6 +30,7 @@
 /data/cam_socket([0-9])*                u:object_r:camera_socket:s0
 /data/power_supply_logger(/.*)?         u:object_r:battery_data_file:s0
 /dev/socket/adspdsock                   u:object_r:adspd_socket:s0
+/dev/socket/cutback                     u:object_r:cutback_socket:s0
 /data/system/dropbox-add(/.*)?          u:object_r:adspd_data_file:s0
 
 # STM401
@@ -43,5 +48,6 @@
 /system/bin/adspd                       u:object_r:adspd_exec:s0
 /system/bin/batt_health                 u:object_r:batt_health_exec:s0
 /system/bin/dbvc_atvc_property_set      u:object_r:atvc_exec:s0
+/system/bin/sensorservice               u:object_r:stm401_exec:s0
 /system/bin/stm401                      u:object_r:stm401_exec:s0
 /system/bin/wcnss_filter                u:object_r:wcnss_filter_exec:s0
