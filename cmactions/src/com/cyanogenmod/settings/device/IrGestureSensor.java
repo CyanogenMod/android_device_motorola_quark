@@ -84,14 +84,8 @@ public class IrGestureSensor extends SensorBase {
                     mIsRinging = false;
                 }
 
-                // Toggle IR on if we are ringing
-                if (mIsScreenOn && mSilenceEnabled) {
-                    if (mIsRinging) {
-                        nativeSetIrDisabled(false);
-                    } else {
-                        nativeSetIrDisabled(true);
-                    }
-                }
+                // Toggle IR
+                updateNativeState();
             }
         }, PhoneStateListener.LISTEN_CALL_STATE);
     }
@@ -100,11 +94,11 @@ public class IrGestureSensor extends SensorBase {
 
     private final native boolean nativeSetIrWakeConfig(int wakeConfig);
 
-    private synchronized void assertIrDisabled() {
+    private synchronized void updateNativeState() {
         // state variables are: mWakeEnabled, mSilenceEnabled, mIsScreenOn, mIsRinging
         boolean canDisableIr = true;
 
-        if (mWakeEnabled && !mIsScreenOn) {
+        if (mDozeManager.isDozeEnabled() && mWakeEnabled && !mIsScreenOn) {
             canDisableIr = false;
         } else if (mSilenceEnabled && mIsScreenOn && mIsRinging) {
             canDisableIr = false;
@@ -125,7 +119,7 @@ public class IrGestureSensor extends SensorBase {
        } else {
            nativeSetIrWakeConfig(0);
        }
-       assertIrDisabled();
+       updateNativeState();
     }
 
     private void reset(int newEventId) {
@@ -147,7 +141,7 @@ public class IrGestureSensor extends SensorBase {
                 return;
         }
 
-        assertIrDisabled();
+        updateNativeState();
         if (!registered() && (mWakeEnabled || mSilenceEnabled)) {
             register();
         }
@@ -167,7 +161,7 @@ public class IrGestureSensor extends SensorBase {
                 return;
         }
 
-        assertIrDisabled();
+        updateNativeState();
         if (registered() && (!mWakeEnabled && !mSilenceEnabled)) {
             unregister();
         }
