@@ -127,7 +127,6 @@ BOARD_SEPOLICY_UNION += \
     adspd.te \
     atvc.te \
     batt_health.te \
-    bluetooth.te \
     device.te \
     file_contexts \
     file.te \
@@ -150,7 +149,6 @@ BOARD_SEPOLICY_UNION += \
     system_server.te \
     thermal-engine.te \
     vold.te \
-    wcnss_filter.te \
     wpa.te
 
 # Wifi
