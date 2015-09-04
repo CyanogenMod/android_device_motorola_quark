@@ -14,6 +14,17 @@
 # limitations under the License.
 #
 
+
+PRODUCT_COPY_FILES += \
+    device/motorola/quark/twrp.fstab:root/etc/twrp.fstab
+
+PRODUCT_COPY_FILES += \
+    device/motorola/quark/rootdir/etc/init.qcom.rc:root/init.qcom.rc \
+    device/motorola/quark/rootdir/etc/init.qcom.power.rc:root/init.qcom.power.rc \
+    device/motorola/quark/rootdir/etc/init.qcom.usb.rc:root/init.qcom.usb.rc \
+    device/motorola/quark/rootdir/etc/fstab.qcom:root/fstab.qcom \
+    device/motorola/quark/rootdir/etc/ueventd.qcom.rc:root/ueventd.qcom.rc
+
 $(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
 
 $(call inherit-product, vendor/motorola/quark/quark-vendor.mk)
@@ -24,12 +35,16 @@ LOCAL_PATH := device/motorola/quark
 DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay
 
 # Screen density
-PRODUCT_AAPT_CONFIG := normal hdpi xhdpi xxhdpi 560dpi xxxhdpi
+PRODUCT_AAPT_CONFIG := normal
 PRODUCT_AAPT_PREF_CONFIG := xxxhdpi
+PRODUCT_AAPT_PREBUILT_DPI := 560dpi xxhdpi xhdpi hdpi
 
 # Boot animation
 TARGET_SCREEN_HEIGHT := 2560
 TARGET_SCREEN_WIDTH := 1440
+
+# No SDCard
+PRODUCT_CHARACTERISTICS := nosdcard
 
 # Permissions
 PRODUCT_COPY_FILES += \
@@ -64,9 +79,9 @@ PRODUCT_COPY_FILES += \
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
     persist.sys.usb.config=mtp
 
-$(call inherit-product, frameworks/native/build/phone-xxhdpi-2048-dalvik-heap.mk)
+$(call inherit-product, frameworks/native/build/phone-xxxhdpi-3072-dalvik-heap.mk)
 
-$(call inherit-product-if-exists, frameworks/native/build/phone-xxhdpi-2048-hwui-memory.mk)
+$(call inherit-product-if-exists, frameworks/native/build/phone-xxxhdpi-3072-hwui-memory.mk)
 
 # Audio
 PRODUCT_PACKAGES += \
@@ -162,7 +177,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/media_profiles.xml:system/etc/media_profiles.xml \
     $(LOCAL_PATH)/configs/media_codecs.xml:system/etc/media_codecs.xml \
-    frameworks/av/media/libstagefright/data/media_codecs_ffmpeg.xml:system/etc/media_codecs_ffmpeg.xml \
     frameworks/av/media/libstagefright/data/media_codecs_google_audio.xml:system/etc/media_codecs_google_audio.xml \
     frameworks/av/media/libstagefright/data/media_codecs_google_telephony.xml:system/etc/media_codecs_google_telephony.xml \
     frameworks/av/media/libstagefright/data/media_codecs_google_video.xml:system/etc/media_codecs_google_video.xml
@@ -222,6 +236,7 @@ PRODUCT_PACKAGES += \
     init.mmi.touch.sh \
     init.mmi.usb.sh \
     init.qcom.rc \
+    init.qcom.power.rc \
     init.qcom.usb.rc \
     init.recovery.qcom.rc \
     moto_config.sh \
@@ -258,6 +273,8 @@ PRODUCT_PACKAGES += \
     wlan_mac_serial.bin
 
 PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/configs/hostapd.accept:system/etc/hostapd/hostapd.accept \
+    $(LOCAL_PATH)/configs/hostapd.deny:system/etc/hostapd/hostapd.deny \
     $(LOCAL_PATH)/configs/hostapd_default.conf:system/etc/hostapd/hostapd_default.conf
 
 PRODUCT_COPY_FILES += \

@@ -14,7 +14,6 @@
 # limitations under the License.
 
 # inherit from the proprietary version
--include vendor/motorola/quark/BoardConfigVendor.mk 
 
 LOCAL_PATH := device/motorola/quark
 
@@ -44,7 +43,7 @@ TARGET_USE_QCOM_BIONIC_OPTIMIZATION := true
 
 # Kernel
 BOARD_CUSTOM_BOOTIMG_MK := $(LOCAL_PATH)/mkbootimg.mk
-BOARD_KERNEL_CMDLINE := console=ttyHSL0,115200,n8 androidboot.console=ttyHSL0 androidboot.hardware=qcom msm_rtb.filter=0x37 ehci-hcd.park=3 vmalloc=400M utags.blkdev=/dev/block/platform/msm_sdcc.1/by-name/utags utags.backup=/dev/block/platform/msm_sdcc.1/by-name/utagsBackup androidboot.selinux
+BOARD_KERNEL_CMDLINE := console=ttyHSL0,115200,n8 androidboot.console=ttyHSL0 androidboot.hardware=qcom msm_rtb.filter=0x37 ehci-hcd.park=3 vmalloc=400M utags.blkdev=/dev/block/platform/msm_sdcc.1/by-name/utags utags.backup=/dev/block/platform/msm_sdcc.1/by-name/utagsBackup
 BOARD_KERNEL_BASE := 0x00000000
 BOARD_KERNEL_PAGESIZE := 4096
 BOARD_KERNEL_SEPARATED_DT := true
@@ -69,6 +68,7 @@ AUDIO_FEATURE_ENABLED_EXTERNAL_SPEAKER := true
 AUDIO_FEATURE_ENABLED_FLUENCE := true
 AUDIO_FEATURE_ENABLED_MULTI_VOICE_SESSIONS := true
 AUDIO_FEATURE_ENABLED_USBAUDIO := true
+AUDIO_FEATURE_LOW_LATENCY_PRIMARY := true
 BOARD_USES_ALSA_AUDIO := true
 
 # Bluetooth
@@ -88,6 +88,7 @@ MAX_EGL_CACHE_KEY_SIZE := 12*1024
 MAX_EGL_CACHE_SIZE := 2048*1024
 USE_OPENGL_RENDERER := true
 OVERRIDE_RS_DRIVER := libRSDriver_adreno.so
+TARGET_FORCE_HWC_FOR_VIRTUAL_DISPLAYS := true
 
 # Fonts
 EXTENDED_FONT_FOOTPRINT := true
@@ -95,9 +96,9 @@ EXTENDED_FONT_FOOTPRINT := true
 # Motorola
 TARGET_USES_MOTOROLA_LOG := true
 
-# Power HAL
+# Power
+BOARD_CHARGER_ENABLE_SUSPEND := true
 TARGET_POWERHAL_VARIANT := qcom
-TARGET_POWERHAL_SET_INTERACTIVE_EXT := $(LOCAL_PATH)/power/power_ext.c
 
 # Lights
 TARGET_PROVIDES_LIBLIGHT := true
@@ -106,10 +107,12 @@ TARGET_PROVIDES_LIBLIGHT := true
 TARGET_ENABLE_QC_AV_ENHANCEMENTS := true
 TARGET_USES_ION := true
 
+# Radio
+BOARD_USES_CUTBACK_IN_RILD := true
+
 # Recovery
 TARGET_RECOVERY_FSTAB := $(LOCAL_PATH)/rootdir/etc/fstab.qcom
 BOARD_USE_CUSTOM_RECOVERY_FONT := \"roboto_23x41.h\"
-TARGET_USERIMAGES_USE_EXT4 := true
 TARGET_USERIMAGES_USE_F2FS := true
 
 # SELinux
@@ -135,6 +138,7 @@ BOARD_SEPOLICY_UNION += \
     mediaserver.te \
     mm-qcamerad.te \
     mpdecision.te \
+    netd.te \
     property.te \
     property_contexts \
     rild.te \
@@ -149,6 +153,7 @@ BOARD_SEPOLICY_UNION += \
 
 # Wifi
 BOARD_HAS_QCOM_WLAN := true
+BOARD_HAS_QCOM_WLAN_SDK := true
 BOARD_WLAN_DEVICE := qcwcn
 BOARD_HOSTAPD_DRIVER := NL80211
 BOARD_HOSTAPD_PRIVATE_LIB := lib_driver_cmd_$(BOARD_WLAN_DEVICE)
@@ -174,3 +179,14 @@ BOARD_USERDATAIMAGE_PARTITION_SIZE := 57185009664
 BOARD_CACHEIMAGE_PARTITION_SIZE := 3539992576
 BOARD_CACHEIMAGE_FILE_SYSTEM_TYPE := ext4
 BOARD_FLASH_BLOCK_SIZE := 131072
+
+# TWRP
+TW_THEME := portrait_hdpi
+RECOVERY_GRAPHICS_USE_LINELENGTH := true
+BOARD_HAS_NO_REAL_SDCARD := true
+TW_SCREEN_BLANK_ON_BOOT := true
+TARGET_RECOVERY_PIXEL_FORMAT := "RGB_565"
+BOARD_SUPPRESS_SECURE_ERASE := true
+BOARD_SUPPRESS_EMMC_WIPE := true
+
+-include vendor/motorola/quark/BoardConfigVendor.mk
