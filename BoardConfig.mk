@@ -14,7 +14,6 @@
 # limitations under the License.
 
 # inherit from the proprietary version
--include vendor/motorola/quark/BoardConfigVendor.mk 
 
 LOCAL_PATH := device/motorola/quark
 
@@ -114,7 +113,6 @@ BOARD_USES_CUTBACK_IN_RILD := true
 # Recovery
 TARGET_RECOVERY_FSTAB := $(LOCAL_PATH)/rootdir/etc/fstab.qcom
 BOARD_USE_CUSTOM_RECOVERY_FONT := \"roboto_23x41.h\"
-TARGET_USERIMAGES_USE_EXT4 := true
 TARGET_USERIMAGES_USE_F2FS := true
 
 # SELinux
@@ -182,3 +180,14 @@ BOARD_USERDATAIMAGE_PARTITION_SIZE := 57185009664
 BOARD_CACHEIMAGE_PARTITION_SIZE := 3539992576
 BOARD_CACHEIMAGE_FILE_SYSTEM_TYPE := ext4
 BOARD_FLASH_BLOCK_SIZE := 131072
+
+# TWRP
+TW_THEME := portrait_hdpi
+RECOVERY_GRAPHICS_USE_LINELENGTH := true
+BOARD_HAS_NO_REAL_SDCARD := true
+TW_SCREEN_BLANK_ON_BOOT := true
+TARGET_RECOVERY_PIXEL_FORMAT := "RGB_565"
+BOARD_SUPPRESS_SECURE_ERASE := true
+BOARD_SUPPRESS_EMMC_WIPE := true
+
+-include vendor/motorola/quark/BoardConfigVendor.mk

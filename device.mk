@@ -14,6 +14,17 @@
 # limitations under the License.
 #
 
+
+PRODUCT_COPY_FILES += \
+    device/motorola/quark/twrp.fstab:root/etc/twrp.fstab
+
+PRODUCT_COPY_FILES += \
+    device/motorola/quark/rootdir/etc/init.qcom.rc:root/init.qcom.rc \
+    device/motorola/quark/rootdir/etc/init.qcom.power.rc:root/init.qcom.power.rc \
+    device/motorola/quark/rootdir/etc/init.qcom.usb.rc:root/init.qcom.usb.rc \
+    device/motorola/quark/rootdir/etc/fstab.qcom:root/fstab.qcom \
+    device/motorola/quark/rootdir/etc/ueventd.qcom.rc:root/ueventd.qcom.rc
+
 $(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
 
 $(call inherit-product, vendor/motorola/quark/quark-vendor.mk)

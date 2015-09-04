@@ -1,0 +1,9 @@
+/system          ext4              /dev/block/platform/msm_sdcc.1/by-name/system
+/data	         f2fs              /dev/block/platform/msm_sdcc.1/by-name/userdata  length=-16384
+/cache	         ext4              /dev/block/platform/msm_sdcc.1/by-name/cache
+/fsg	         ext4              /dev/block/platform/msm_sdcc.1/by-name/mdm1m9kefs3
+/firmware		 ext4              /dev/block/platform/msm_sdcc.1/by-name/modem
+/persist		 ext4              /dev/block/platform/msm_sdcc.1/by-name/persist
+/boot            emmc              /dev/block/platform/msm_sdcc.1/by-name/boot
+/recovery        emmc              /dev/block/platform/msm_sdcc.1/by-name/recovery      flags=backup=1
+/usb-otg         vfat              /dev/block/sda1      /dev/block/sda              flags=removable;storage;display="USB-OTG"
