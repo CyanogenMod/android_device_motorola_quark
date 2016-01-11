@@ -16,5 +16,8 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <string name="user_aware_display_title">العرض المتعرف عليه بواسطة المستخدم</string>
+  <string name="user_aware_display_summary">حافظ على الشاشة قيد التشغيل عندما يكون المستخدم أمام شاشة العرض</string>
   <string name="screen_gestures_panel_summary">استخدام الإيماءات لتنفيذ الإجراءات</string>
+  <string name="action_launch_camera">انطلاق الكاميرا</string>
 </resources>
