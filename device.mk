@@ -222,6 +222,11 @@ PRODUCT_PACKAGES += \
     init.recovery.qcom.rc \
     ueventd.qcom.rc
 
+# RIL Packages
+PRODUCT_PACKAGES += \
+    libcnefeatureconfig \
+    librmnetctl
+
 # RIL
 PRODUCT_COPY_FILES += \
    $(LOCAL_PATH)/configs/qcril.db:system/etc/ril/qcril.db
