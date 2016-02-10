@@ -223,6 +223,7 @@ PRODUCT_PACKAGES += \
 
 # RIL
 PRODUCT_PACKAGES += \
+    libcnefeatureconfig \
     librmnetctl
 
 PRODUCT_COPY_FILES += \
