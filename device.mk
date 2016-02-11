@@ -113,6 +113,9 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/andsfCne.xml:system/etc/cne/andsfCne.xml \
     $(LOCAL_PATH)/configs/SwimConfig.xml:system/etc/cne/SwimConfig.xml
 
+PRODUCT_PACKAGES += \
+    libcnefeatureconfig
+
 # CRDA
 PRODUCT_PACKAGES += \
     crda \
@@ -222,11 +225,11 @@ PRODUCT_PACKAGES += \
     ueventd.qcom.rc
 
 # RIL
-PRODUCT_PACKAGES += \
-    librmnetctl
-
 PRODUCT_COPY_FILES += \
    $(LOCAL_PATH)/configs/qcril.db:system/etc/ril/qcril.db
+
+PRODUCT_PACKAGES += \
+    librmnetctl
 
 # Shims
 PRODUCT_PACKAGES += \
