@@ -199,7 +199,7 @@ static const struct android_id_info android_ids[] = {
     { "shell",         AID_SHELL, },
     { "cache",         AID_CACHE, },
     { "diag",          AID_DIAG, },
-    { "qcom_diag",     AID_QCOM_DIAG },
+    { "qcom_diag",     AID_QCOM_DIAG, },
 
     { "net_bt_admin",  AID_NET_BT_ADMIN, },
     { "net_bt",        AID_NET_BT, },
