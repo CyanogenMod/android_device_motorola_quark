@@ -228,10 +228,13 @@ PRODUCT_PACKAGES += \
 PRODUCT_COPY_FILES += \
    $(LOCAL_PATH)/configs/qcril.db:system/etc/ril/qcril.db
 
-# Shims
+# Shim libraries
 PRODUCT_PACKAGES += \
+    libshim_camera \
     libshim_log \
-    libshim_mdmcutback
+    libshim_mdmcutback \
+    libshim_ril \
+    libshim_speakerbundle
 
 # SSL Compat
 PRODUCT_PACKAGES += \
