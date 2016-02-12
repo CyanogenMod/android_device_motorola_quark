@@ -1,5 +1,5 @@
 
-# Copyright (C) 2015 The CyanogenMod Project
+# Copyright (C) 2016 The CyanogenMod Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -15,7 +15,19 @@
 
 LOCAL_PATH := $(call my-dir)
 
+# Camera
+
 include $(CLEAR_VARS)
+
+LOCAL_SRC_FILES := \
+    gui/SensorManager.cpp \
+    moto_camera_misc.c
+
+LOCAL_SHARED_LIBRARIES := libutils libgui liblog libbinder
+LOCAL_MODULE := libshim_camera
+LOCAL_MODULE_TAGS := optional
+
+include $(BUILD_SHARED_LIBRARY)
 
 # Log
 
@@ -34,5 +46,27 @@ include $(CLEAR_VARS)
 LOCAL_SRC_FILES := moto_mdmcutback.c
 LOCAL_MODULE := libshim_mdmcutback
 LOCAL_MODULE_TAGS := optional
+
+include $(BUILD_SHARED_LIBRARY)
+
+# speakerbundle
+
+include $(CLEAR_VARS)
+
+LOCAL_SRC_FILES := gui/SensorManager.cpp
+LOCAL_MODULE := libshim_speakerbundle
+LOCAL_MODULE_TAGS := optional
+LOCAL_SHARED_LIBRARIES := libutils libgui liblog libbinder
+
+include $(BUILD_SHARED_LIBRARY)
+
+# RIL
+
+include $(CLEAR_VARS)
+
+LOCAL_SRC_FILES := moto_ril.c
+LOCAL_MODULE := libshim_ril
+LOCAL_MODULE_TAGS := optional
+LOCAL_SHARED_LIBRARIES := libbinder
 
 include $(BUILD_SHARED_LIBRARY)
