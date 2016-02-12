@@ -231,10 +231,12 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     librmnetctl
 
-# Shims
+# Shim libraries
 PRODUCT_PACKAGES += \
+    libshim_camera \
     libshim_log \
     libshim_mdmcutback \
+    libshim_ril \
     libshim_sensors
 
 # SSL Compat
