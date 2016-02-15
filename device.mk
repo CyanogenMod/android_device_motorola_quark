@@ -229,6 +229,7 @@ PRODUCT_COPY_FILES += \
    $(LOCAL_PATH)/configs/qcril.db:system/etc/ril/qcril.db
 
 PRODUCT_PACKAGES += \
+    libcnefeatureconfig \
     librmnetctl
 
 # Shim libraries
