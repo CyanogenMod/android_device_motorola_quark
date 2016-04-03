@@ -30,7 +30,7 @@ etc/acdbdata/Headset_cal.acdb
 etc/acdbdata/Speaker_cal.acdb
 
 # ATFWD
--app/atfwd/atfwd.apk
+-priv-app/atfwd/atfwd.apk
 bin/ATFWD-daemon
 
 # Audio firmware
@@ -203,18 +203,17 @@ bin/thermal-engine:vendor/bin/thermal-engine
 vendor/lib/libqc-opt.so
 vendor/lib/libthermalioctl.so
 
-# DRM (sourced from shamu)
+# DRM
 bin/qseecomd
+lib/libdrmdecrypt.so
 vendor/lib/drm/libdrmwvmplugin.so
 vendor/lib/mediadrm/libwvdrmengine.so
-vendor/lib/libdrmdecrypt.so
 vendor/lib/libdrmfs.so
 vendor/lib/libdrmtime.so
 vendor/lib/libssd.so
 vendor/lib/libQSEEComAPI.so
 vendor/lib/libwvdrm_L1.so
 vendor/lib/libwvm.so
-vendor/lib/libWVphoneAPI.so
 vendor/lib/libWVStreamControlAPI_L1.so
 
 # DRM firmware
@@ -254,7 +253,7 @@ vendor/lib/liblocationservice.so
 vendor/lib/libquipc_os_api.so
 vendor/lib/libulp2.so
 
-# Graphics (sourced from trlte)
+# Graphics
 vendor/lib/egl/eglSubDriverAndroid.so
 vendor/lib/egl/libEGL_adreno.so
 vendor/lib/egl/libGLESv1_CM_adreno.so
@@ -276,16 +275,14 @@ vendor/lib/librs_adreno.so
 vendor/lib/libRSDriver_adreno.so
 vendor/lib/libscale.so
 
-# Graphics firmware (sourced from trlte)
+# Graphics firmware
 etc/firmware/a420_pfp.fw
 etc/firmware/a420_pm4.fw
 
 # Media
+vendor/lib/libDivxDrm.so
 vendor/lib/libI420colorconvert.so
 vendor/lib/libmm-color-convertor.so
-
-# Media (sourced from trlte)
-vendor/lib/libDivxDrm.so
 vendor/lib/libmmosal.so
 
 # Media firmware
@@ -303,7 +300,6 @@ bin/dbvc_atvc_property_set
 bin/hardware_revisions.sh
 
 # NFC
-etc/firmware/BCM20795A0_001.001.023.0003.0022_Generic_I2C_NCD_Unsigned_configdata.ncd
 etc/firmware/BCM20795A1_001.002.012.0003.0078_Generic_I2C_NCD_Signed_configdata.ncd
 
 # Qualcomm framework
@@ -355,22 +351,6 @@ vendor/lib/libsystem_health_mon.so
 vendor/lib/librpmb.so
 vendor/lib/libxml.so
 
-# Radio dependencies
-vendor/lib/lib-dplmedia.so
-vendor/lib/lib-imscamera.so
-vendor/lib/lib-imsdpl.so
-vendor/lib/lib-imsqimf.so
-vendor/lib/lib-imsrcs.so
-vendor/lib/lib-imss.so
-vendor/lib/lib-imsSDP.so
-vendor/lib/lib-imsvt.so
-vendor/lib/lib-imsxml.so
-vendor/lib/lib-rtpcommon.so
-vendor/lib/lib-rtpcore.so
-vendor/lib/lib-rtpdaemoninterface.so
-vendor/lib/lib-rtpsl.so
-vendor/lib/libvcel.so
-
 # Sensors
 bin/stm401
 etc/firmware/cy8c20247_24lkxi.hex
@@ -407,16 +387,6 @@ etc/firmware/vpu.b11
 etc/firmware/vpu.b12
 etc/firmware/vpu.mbn
 etc/firmware/vpu.mdt
-
-# Verizon
--app/appdirectedsmspermission/appdirectedsmspermission.apk
--app/vzwapnpermission/vzwapnpermission.apk
--app/VZWAPNLib/VZWAPNLib.apk
--priv-app/VZWAPNService/VZWAPNService.apk
-
-# Verizon (sourced from shamu)
--app/MotoSignatureApp/MotoSignatureApp.apk
--priv-app/BuaContactAdapter/BuaContactAdapter.apk
 
 # Voice recognition
 lib/hw/audio.motvr.default.so
@@ -469,3 +439,12 @@ vendor/moto/audiomonitor/sensory/svsid_triggerogn_ptbr_2_1.raw
 
 # These binaries were patched
 # lib/hw/sound_trigger.primary.apq8084.so (dependency)
+
+# Carrier related (sourced from shamu)
+-app/VZWAPNLib/VZWAPNLib.apk
+-framework/com.verizon.hardware.telephony.ehrpd.jar
+-framework/com.verizon.hardware.telephony.lte.jar
+-priv-app/AppDirectedSMSProxy/AppDirectedSMSProxy.apk
+-priv-app/BuaContactAdapter/BuaContactAdapter.apk
+-priv-app/MotoSignatureApp/MotoSignatureApp.apk
+-priv-app/VZWAPNService/VZWAPNService.apk
