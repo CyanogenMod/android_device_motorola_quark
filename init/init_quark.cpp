@@ -34,8 +34,6 @@
 #include "log.h"
 #include "util.h"
 
-#include "init_msm.h"
-
 #define ARRAY_SIZE(x) (sizeof(x)/sizeof(x[0]))
 
 static void set_cmdline_properties()
