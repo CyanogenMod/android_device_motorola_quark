@@ -35,6 +35,7 @@
 #include "util.h"
 
 #define ARRAY_SIZE(x) (sizeof(x)/sizeof(x[0]))
+#define ISMATCH(a,b)    (!strncmp(a,b,PROP_VALUE_MAX))
 
 static void set_cmdline_properties()
 {
