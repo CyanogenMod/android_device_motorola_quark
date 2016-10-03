@@ -83,6 +83,9 @@ public class CMActionsService extends IntentService implements ScreenStateNotifi
 
     @Override
     public void screenTurnedOn() {
+        if (!mWakeLock.isHeld()) {
+            mWakeLock.acquire();
+        }
         for (ScreenStateNotifier screenStateNotifier : mScreenStateNotifiers) {
             screenStateNotifier.screenTurnedOn();
         }
@@ -90,6 +93,9 @@ public class CMActionsService extends IntentService implements ScreenStateNotifi
 
     @Override
     public void screenTurnedOff() {
+        if (mWakeLock.isHeld()) {
+            mWakeLock.release();
+        }
         for (ScreenStateNotifier screenStateNotifier : mScreenStateNotifiers) {
             screenStateNotifier.screenTurnedOff();
         }
@@ -97,14 +103,8 @@ public class CMActionsService extends IntentService implements ScreenStateNotifi
 
     public void updateState() {
         if (mPowerManager.isInteractive()) {
-            if (!mWakeLock.isHeld()) {
-                mWakeLock.acquire();
-            }
             screenTurnedOn();
         } else {
-            if (mWakeLock.isHeld()) {
-                mWakeLock.release();
-            }
             screenTurnedOff();
         }
         for (UpdatedStateNotifier notifier : mUpdatedStateNotifiers) {
