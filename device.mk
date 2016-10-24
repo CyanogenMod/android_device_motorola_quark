@@ -61,6 +61,11 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/handheld_core_hardware.xml:system/etc/permissions/handheld_core_hardware.xml \
     frameworks/native/data/etc/android.hardware.ethernet.xml:system/etc/permissions/android.hardware.ethernet.xml
 
+# Motorola-specific permissions
+PRODUCT_COPY_FILES += \
+    device/motorola/quark/permissions/com.motorola.camera.xml:system/etc/permissions/com.motorola.camera.xml \
+    device/motorola/quark/permissions/com.motorola.motosignature.xml:system/etc/permissions/com.motorola.motosignature.xml \
+
 $(call inherit-product, frameworks/native/build/phone-xxxhdpi-3072-dalvik-heap.mk)
 
 $(call inherit-product-if-exists, frameworks/native/build/phone-xxxhdpi-3072-hwui-memory.mk)

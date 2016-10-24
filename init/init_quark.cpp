@@ -69,6 +69,7 @@ void vendor_load_properties()
     char sku[PROP_VALUE_MAX];
     char carrier[PROP_VALUE_MAX];
     char fsgid[PROP_VALUE_MAX];
+    char camera_enable_vpu[PROP_VALUE_MAX];
     const char *fsgid_value;
     int rc;
 
@@ -77,6 +78,17 @@ void vendor_load_properties()
         return;
 
     set_cmdline_properties();
+
+    // Moto camera app hidden settings option "Temporal Noise Reduction" when enable set /data/persist/persist.camera.enable_vpu to 1
+    // and that breaks camera support after a reboot in CM, prevent that here by setting to 0 if 1
+    rc = property_get("persist.camera.enable_vpu", camera_enable_vpu);
+    if (rc < 0) {
+        camera_enable_vpu[0] = '\0';
+    }
+
+    if (ISMATCH(camera_enable_vpu, "1")) {
+	property_set("persist.camera.enable_vpu", "0");
+    }
 
     // Defaults go to Latin America XT1225
     rc = property_get("ro.boot.hardware.sku", sku);
