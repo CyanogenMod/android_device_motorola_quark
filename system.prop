@@ -17,7 +17,7 @@ ro.qualcomm.bluetooth.sap=false
 
 # Display
 ro.qualcomm.cabl=0
-ro.opengles.version=196608
+ro.opengles.version=196609
 ro.sf.lcd_density=640
 persist.panel.mountflip=3
 
@@ -88,7 +88,6 @@ persist.radio.msgtunnel.start=true
 persist.radio.oem_ind_to_both=false
 persist.data.netmgrd.qos.enable=true
 persist.data.qmi.adb_logmask=0
-persist.radio.apn_delay=5000
 persist.radio.VT_USE_MDM_TIME=1
 
 ro.use_data_netmgrd=true
